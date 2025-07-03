@@ -73,11 +73,6 @@ explore: order_items {
     sql_on: ${order_items.order_id} = ${repeat_purchase_facts.order_id} ;;
   }
 
-  join: discounts {
-    view_label: "Discounts"
-    type: inner
-    sql_on: ${products.id} = ${discounts.product_id} ;;
-  }
 
   join: distribution_centers {
     view_label: "Distribution Center"
@@ -319,67 +314,5 @@ explore: kitten_order_items {
   join: users {
     view_label: "Kittens"
     from: kitten_users
-  }
-}
-
-######### Cohort Analysis BQML #########
-explore: ecomm_training_info {
-label: "E-Comm Cohort Analysis Training"
-  join: cluster_info {
-    relationship: many_to_one
-    sql: LEFT JOIN UNNEST(ecomm_training_info.cluster_info) as cluster_info ;;
-  }
-  join: ecomm_model_eval {
-    view_label: "E-Comm Model Evaluation"
-    relationship: many_to_one
-    sql_on: ${ecomm_model_eval.clusters_num} = ${ecomm_training_info.clusters_num} ;;
-  }
-  join: ecomm_feature_info {
-    view_label: "E-Comm Model Feature Info"
-    relationship: many_to_one
-    sql_on: ${ecomm_training_info.clusters_num} = ${ecomm_feature_info.clusters_num} ;;
-  }
-}
-
-explore: kmeans_model5 {}
-
-
-explore: ecomm_predict {
-  label: "(8) Cohort Analysis"
-  fields: [ALL_FIELDS*,-centroid_id, -user_id]
-  join: users {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${ecomm_predict.user_id} = ${users.id} ;;
-  }
-  join: order_items {
-    view_label: "Order Items"
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${users.id} = ${order_items.user_id} ;;
-  }
-  join: inventory_items {
-    view_label: "Inventory Items"
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${inventory_items.id} = ${order_items.inventory_item_id} ;;
-  }
-  join: products {
-    view_label: "Products"
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${products.id} = ${inventory_items.product_id}  ;;
-  }
-  join: repeat_purchase_facts {
-    view_label: "Repeat Purchase Facts"
-    relationship: many_to_one
-    type: full_outer
-    sql_on: ${order_items.order_id} = ${repeat_purchase_facts.order_id} ;;
-  }
-  join: order_facts {
-    type: left_outer
-    view_label: "Orders"
-    relationship: many_to_one
-    sql_on: ${order_facts.order_id} = ${order_items.order_id} ;;
   }
 }

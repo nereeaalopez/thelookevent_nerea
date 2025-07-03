@@ -17,7 +17,7 @@ view: order_items {
     description: "Identifier for the associated inventory item (hidden)"
     type: number
     hidden: yes
-    sql: ${TABLE}.inventory_item_id ;;
+    sql: ${TABLE}.inventory_item_id ;
   }
 
   dimension: user_id {
