@@ -1,5 +1,5 @@
 view: order_items {
-  sql_table_name: looker-private-demo.ecomm.order_items ;;
+  sql_table_name: bigquery-public-data.thelook_ecommerce.order_items ;;
   view_label: "Order Items"
   ########## IDs, Foreign Keys, Counts ###########
 

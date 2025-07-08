@@ -69,7 +69,7 @@ view: cohort_size {
       ELSE cast(DATE_TRUNC(date(users.created_at), MONTH) as string)
       END AS cohort,
       COUNT(DISTINCT users.id ) AS cohort_size
-      FROM ecomm.users AS users
+      FROM thelook_ecommerce.users AS users
       GROUP BY 1
        ;;
   }

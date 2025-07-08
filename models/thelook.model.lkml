@@ -1,4 +1,4 @@
-connection: "looker-private-demo"
+connection: "bigquery-public-data"
 label: "eCommerce"
 include: "/queries/queries*.view" # includes all queries refinements
 include: "/views/**/*.view" # include all the views
@@ -8,12 +8,12 @@ include: "/dashboards/*.dashboard.lookml" # include all the views
 ############ Model Configuration #############
 
 # datagroup: ecommerce_etl {
-#   sql_trigger: SELECT max(created_at) FROM ecomm.events ;;
+#   sql_trigger: SELECT max(created_at) FROM thelook_ecommerce.events ;;
 #   max_cache_age: "24 hours"
 # }
 
 datagroup: ecommerce_etl_modified {
-  sql_trigger: SELECT MAX(DATE(created_at)) FROM `looker-private-demo.ecomm.events` ;;
+  sql_trigger: SELECT MAX(DATE(created_at)) FROM `bigquery-public-data.thelook_ecommerce.events` ;;
   max_cache_age: "24 hours"
 }
 
